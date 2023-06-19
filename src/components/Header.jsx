@@ -1,7 +1,9 @@
 
 function Header() {
     return (
-        <h1>Desde Header</h1>
+        <header>
+            <h1 className="text-3xl font-bold uppercase text-red-400">Desde Header</h1>
+        </header>
     )
 }
 
