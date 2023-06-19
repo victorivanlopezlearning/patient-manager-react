@@ -1,12 +1,15 @@
+import Form from './components/Form';
+import Header from './components/Header';
+import PatientList from './components/PatientList';
 
 function App() {
-  return (
+    return (
     <>
-      <div>
-        <h1>Hello World</h1>
-      </div>
+        <Header />
+        <Form />
+        <PatientList />
     </>
-  )
+    )
 }
 
 export default App
