@@ -1,7 +1,9 @@
 
 const PatientList = () => {
   return (
-    <h2>Patient List</h2>
+    <div className="lg:col-span-2">
+      <h2 className="text-center font-black text-3xl">Lista de Pacientes</h2>
+    </div>
   )
 }
 
