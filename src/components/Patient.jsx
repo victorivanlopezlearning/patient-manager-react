@@ -10,6 +10,18 @@ const Patient = ({ patient }) => {
       <p className="font-bold text-gray-700 uppercase mb-3">Email: <span className="font-normal normal-case">{email}</span></p>
       <p className="font-bold text-gray-700 uppercase mb-3">Fecha Alta: <span className="font-normal normal-case">{date}</span></p>
       <p className="font-bold text-gray-700 uppercase mb-3">Síntomas <span className="font-normal normal-case">{symptoms}</span></p>
+
+      <div className="flex content-center justify-between md:justify-start md:gap-4 mt-6">
+        <button
+          type="button"
+          className="py-2 px-8 bg-indigo-600 hover:bg-indigo-700 transition-colors text-white font-bold uppercase rounded-lg"
+        >Editar</button>
+
+        <button
+          type="button"
+          className="py-2 px-8 bg-red-600 hover:bg-red-700 transition-colors text-white font-bold uppercase rounded-lg"
+        >Eliminar</button>
+      </div>
     </div>
   )
 }
