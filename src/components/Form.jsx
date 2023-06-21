@@ -1,11 +1,48 @@
 
-const Form = () => {
+import { useState, useEffect, Children } from 'react';
+import ErrorLabel from './ErrorLabel';
+
+const Form = ({ patients, setPatients }) => {
+
+  const [ namePet, setNamePet ] = useState('');
+  const [ name, setName ] = useState('');
+  const [ email, setEmail ] = useState('');
+  const [ date, setDate ] = useState('');
+  const [ symptoms, setSymptoms ] = useState('');
+
+  const [ error, setError ] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Validation
+    if( [ namePet, name, email, date, symptoms ].includes('') ) {
+      setError(true);
+      return;
+    }
+    setError(false);
+
+    const newPatient = { namePet, name, email, date, symptoms };
+    setPatients([...patients, newPatient]);
+
+    // Reset Form
+    setNamePet('');
+    setName('');
+    setEmail('');
+    setDate('');
+    setSymptoms('');
+  }
+
   return (
     <div>
       <h2 className="text-center font-black text-3xl">Seguimiento Pacientes</h2>
       <p className="text-lg m-5 text-center">Añade pacientes y <span className="text-indigo-600 font-bold">Administralos</span></p>
 
-      <form className="bg-white shadow-md rounded-lg py-10 px-5 mb-5">
+      <form 
+        className="bg-white shadow-md rounded-lg py-10 px-5 mb-5 mx-3"
+        onSubmit={ handleSubmit }
+      >
+        { error &&  <ErrorLabel message='Todos los campos son obligatorios' /> }
         <div className="mb-5">
           <label htmlFor="namePet" className="block text-gray-700 uppercase font-bold">Nombre Mascota</label>
           <input 
@@ -14,6 +51,8 @@ const Form = () => {
             type="text" 
             placeholder="Nombre de la mascota"
             className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md focus:outline-none"
+            value={ namePet }
+            onChange={ (e) => setNamePet(e.target.value) }
           />
         </div>
 
@@ -25,6 +64,8 @@ const Form = () => {
             type="text" 
             placeholder="Nombre del propietario"
             className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md focus:outline-none"
+            value={ name }
+            onChange={ (e) => setName(e.target.value) }
           />
         </div>
 
@@ -36,16 +77,20 @@ const Form = () => {
             type="email"
             placeholder="email@gmail.com"
             className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md focus:outline-none"
+            value={ email }
+            onChange={ (e) => setEmail(e.target.value) }
           />
         </div>
 
         <div className="mb-5">
-          <label htmlFor="discharged" className="block text-gray-700 uppercase font-bold">Alta</label>
+          <label htmlFor="date" className="block text-gray-700 uppercase font-bold">Alta</label>
           <input 
-            id="discharged" 
-            name="discharged" 
+            id="date" 
+            name="date" 
             type="date"
             className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md focus:outline-none"
+            value={ date }
+            onChange={ (e) => setDate(e.target.value) }
           />
         </div>
 
@@ -55,7 +100,9 @@ const Form = () => {
             id="symptoms"
             name="symptoms" 
             placeholder="Describe los sintomas"
-            className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md focus:outline-none h-24" 
+            className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md focus:outline-none h-24"
+            value={ symptoms }
+            onChange={ (e) => setSymptoms(e.target.value) }
           />
         </div>
 
