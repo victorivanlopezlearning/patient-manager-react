@@ -1,5 +1,5 @@
 
-import { useState, useEffect, Children } from 'react';
+import { useState, useEffect } from 'react';
 import ErrorLabel from './ErrorLabel';
 
 const Form = ({ patients, setPatients }) => {
@@ -12,6 +12,13 @@ const Form = ({ patients, setPatients }) => {
 
   const [ error, setError ] = useState(false);
 
+  const generateID = () => {
+    const random = Math.random().toString(36).substr(2);
+    const date = Date.now().toString(36);
+
+    return random + date;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -22,7 +29,9 @@ const Form = ({ patients, setPatients }) => {
     }
     setError(false);
 
-    const newPatient = { namePet, name, email, date, symptoms };
+    const id = generateID();
+
+    const newPatient = { namePet, name, email, date, symptoms, id };
     setPatients([...patients, newPatient]);
 
     // Reset Form
@@ -42,7 +51,7 @@ const Form = ({ patients, setPatients }) => {
         className="bg-white shadow-md rounded-lg py-10 px-5 mb-5 mx-3"
         onSubmit={ handleSubmit }
       >
-        { error &&  <ErrorLabel message='Todos los campos son obligatorios' /> }
+        { error &&  <ErrorLabel><p>Todos los campos son obligatorios</p></ErrorLabel> }
         <div className="mb-5">
           <label htmlFor="namePet" className="block text-gray-700 uppercase font-bold">Nombre Mascota</label>
           <input 
