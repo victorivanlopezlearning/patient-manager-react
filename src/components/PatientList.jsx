@@ -1,7 +1,7 @@
 import Patient from './Patient';
 
 
-const PatientList = ({ patients }) => {
+const PatientList = ({ patients, setPatient }) => {
   return (
     <div className="lg:col-span-2">
 
@@ -15,6 +15,7 @@ const PatientList = ({ patients }) => {
                 <Patient
                   key={ patient.id }
                   patient={ patient }
+                  setPatient={ setPatient }
                 /> 
               )) }
             </div>

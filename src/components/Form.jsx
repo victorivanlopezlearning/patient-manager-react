@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import ErrorLabel from './ErrorLabel';
 
-const Form = ({ patients, setPatients }) => {
+const Form = ({ patients, setPatients, patient }) => {
 
   const [ namePet, setNamePet ] = useState('');
   const [ name, setName ] = useState('');
@@ -11,6 +11,18 @@ const Form = ({ patients, setPatients }) => {
   const [ symptoms, setSymptoms ] = useState('');
 
   const [ error, setError ] = useState(false);
+
+  useEffect( () => {
+    if( Object.keys( patient ).length > 0 ) {
+      const { namePet, name, email, date, symptoms } = patient;
+
+      setNamePet(namePet);
+      setName(name);
+      setEmail(email);
+      setDate(date);
+      setSymptoms(symptoms);
+    };
+  }, [ patient ] );
 
   const generateID = () => {
     const random = Math.random().toString(36).substr(2);
@@ -118,7 +130,7 @@ const Form = ({ patients, setPatients }) => {
         <input 
           type="submit"
           className="bg-indigo-600 w-full p-3 text-white font-bold uppercase cursor-pointer hover:bg-indigo-700 transition-colors"
-          value="Agregar Paciente" 
+          value={ patient.id ? 'Guarda Cambios' : 'Agregar Paciente' }
         />
       </form>
     </div>
