@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import ErrorLabel from './ErrorLabel';
 
-const Form = ({ patients, setPatients, patient }) => {
+const Form = ({ patients, setPatients, patient, setPatient }) => {
 
   const [ namePet, setNamePet ] = useState('');
   const [ name, setName ] = useState('');
@@ -41,10 +41,21 @@ const Form = ({ patients, setPatients, patient }) => {
     }
     setError(false);
 
-    const id = generateID();
+    const objPatient = { namePet, name, email, date, symptoms };
 
-    const newPatient = { namePet, name, email, date, symptoms, id };
-    setPatients([...patients, newPatient]);
+    if(patient.id) {
+      // Updated Patient
+      objPatient.id = patient.id;
+      const updatedPatients  = patients.map( patientState => patientState.id === patient.id ? objPatient : patientState);
+
+      setPatients(updatedPatients);
+      setPatient({});
+    } else {
+      // Create new Patient
+      objPatient.id = generateID();
+
+      setPatients([...patients, objPatient]);
+    }
 
     // Reset Form
     setNamePet('');
